@@ -91,7 +91,7 @@ function CreateRing(pos, vel)
             end
 
             if not ring.picked and GetGameTimer() - ring.life.start > 500 and #(GetEntityCoords(PlayerPedId()) - ring.pos) < 1.0 then
-                PlaySoundFile("ring1", false)
+                --PlaySoundFile("ring1", false)
                 ring.picked = true
                 ring.life.start = GetGameTimer()
                 ring.life.duration = 500
@@ -141,18 +141,7 @@ CreateThread(function()
         local pool = GetGamePool("CPed")
         for i,v in pairs(pool) do
             if IsEntityDead(v) and not Entity(v).state.ringed then
-                -- ######## EXTERNAL SOUND LIBRARY ######## 
-                pedCoords = GetEntityCoords(v)
-                -- local ring2 = exports.sounity:CreateSound("https://cdn.discordapp.com/attachments/310108201632661505/996198725250727967/S1_C6.wav", json.encode({
-                    -- posX = pedCoords.x,
-                    -- posY = pedCoords.y,
-                    -- posZ = pedCoords.z,
-                -- }));
-                
-                -- start playback of that sound
-                -- exports.sounity:StartSound(ring2);
-                -- ######## EXTERNAL SOUND LIBRARY ######## 
-				Wait(100)
+			Wait(100)
                 for i=0,GetPedMoney(v) do
                     CreateRing(GetEntityCoords(v), GetEntityVelocity(v))
                 end
