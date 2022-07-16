@@ -5,8 +5,13 @@ server_script 'server.lua'
 client_script 'client.lua'
 
 files {
-	'audio/**.ogg',
+	-- 'audio/**.ogg',
+	'data/dlcsonic_sounds.dat54.rel',
+	'dlc_sonic/sonic.awc',
 }
 
-file 'sound.html'
-ui_page 'sound.html'
+data_file 'AUDIO_WAVEPACK' 'dlc_sonic'
+data_file 'AUDIO_SOUNDDATA' 'data/dlcsonic_sounds.dat'
+
+-- file 'sound.html'
+-- ui_page 'sound.html'

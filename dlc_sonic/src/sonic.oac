@@ -1,0 +1,72 @@
+Version 1 11
+{
+	IsStream False
+	DescriptorsInOrder False
+	Entries
+	{
+		WaveTrack DROP_LEFT
+		{
+			Compression PCM
+			Headroom 161
+			LoopPoint -1
+			LoopBegin 0
+			LoopEnd 0
+			PlayBegin 0
+			PlayEnd 0
+			Wave sonic\drop_left.wav
+			AnimClip null
+			Events null
+			UNKNOWN_23097A2B null
+			UNKNOWN_E787895A null
+			UNKNOWN_252C20D9 null
+		}
+		WaveTrack DROP_RIGHT
+		{
+			Compression PCM
+			Headroom 161
+			LoopPoint -1
+			LoopBegin 0
+			LoopEnd 0
+			PlayBegin 0
+			PlayEnd 0
+			Wave sonic\drop_right.wav
+			AnimClip null
+			Events null
+			UNKNOWN_23097A2B null
+			UNKNOWN_E787895A null
+			UNKNOWN_252C20D9 null
+		}
+		WaveTrack PICK_LEFT
+		{
+			Compression PCM
+			Headroom 161
+			LoopPoint -1
+			LoopBegin 0
+			LoopEnd 0
+			PlayBegin 0
+			PlayEnd 0
+			Wave sonic\pick_left.wav
+			AnimClip null
+			Events null
+			UNKNOWN_23097A2B null
+			UNKNOWN_E787895A null
+			UNKNOWN_252C20D9 null
+		}
+		WaveTrack PICK_RIGHT
+		{
+			Compression PCM
+			Headroom 161
+			LoopPoint -1
+			LoopBegin 0
+			LoopEnd 0
+			PlayBegin 0
+			PlayEnd 0
+			Wave sonic\pick_right.wav
+			AnimClip null
+			Events null
+			UNKNOWN_23097A2B null
+			UNKNOWN_E787895A null
+			UNKNOWN_252C20D9 null
+		}
+	}
+}

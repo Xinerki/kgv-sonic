@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dat54>
+ <Version value="7314721" />
+ <NameTable>
+  <Item>dlc_sonic\sonic</Item>
+ </NameTable>
+ <Items>
+ 
+  <Item type="SimpleSound">
+   <Name>dlc_sonic_drop_l</Name>
+   <Header>
+    <Flags value="0x00000040" />
+    <Unk06 value="270" />
+   </Header>
+   <ContainerName>dlc_sonic/sonic</ContainerName>
+   <FileName>drop_left</FileName>
+   <WaveSlotNum value="0" />
+  </Item>
+  <Item type="SimpleSound">
+   <Name>dlc_sonic_drop_r</Name>
+   <Header>
+    <Flags value="0x00000040" />
+    <Unk06 value="90" />
+   </Header>
+   <ContainerName>dlc_sonic/sonic</ContainerName>
+   <FileName>drop_right</FileName>
+   <WaveSlotNum value="0" />
+  </Item>
+  
+  <Item type="SimpleSound">
+   <Name>dlc_sonic_pick_l</Name>
+   <Header>
+    <Flags value="0x00000040" />
+    <Unk06 value="270" />
+   </Header>
+   <ContainerName>dlc_sonic/sonic</ContainerName>
+   <FileName>pick_left</FileName>
+   <WaveSlotNum value="0" />
+  </Item>
+  <Item type="SimpleSound">
+   <Name>dlc_sonic_pick_r</Name>
+   <Header>
+    <Flags value="0x00000040" />
+    <Unk06 value="90" />
+   </Header>
+   <ContainerName>dlc_sonic/sonic</ContainerName>
+   <FileName>pick_right</FileName>
+   <WaveSlotNum value="0" />
+  </Item>
+  
+  <Item type="SoundSet">
+   <Name>dlc_sonic_sounds</Name>
+   <Header>
+    <Flags value="0xAAAAAAAA" />
+   </Header>
+   <Items>
+    <Item>
+     <ScriptName>sonic_drop_rings</ScriptName>
+     <SoundName>dlc_sonic_drop_mt</SoundName>
+    </Item>
+    <Item>
+     <ScriptName>sonic_pick_rings</ScriptName>
+     <SoundName>dlc_sonic_pick_mt</SoundName>
+    </Item>
+   </Items>
+  </Item>
+  
+  <Item type="MultitrackSound">
+   <Name>dlc_sonic_drop_mt</Name>
+   <Header>
+    <Flags value="0x00008005" />
+    <Flags2 value="0xAAA0AAAA" />
+    <Unk02 value="65236" />
+    <Category>hash_02C7B342</Category>
+   </Header>
+   <AudioTracks>
+    <Item>dlc_sonic_drop_r</Item>
+    <Item>dlc_sonic_drop_l</Item>
+   </AudioTracks>
+  </Item>
+  <Item type="MultitrackSound">
+   <Name>dlc_sonic_pick_mt</Name>
+   <Header>
+    <Flags value="0x00008005" />
+    <Flags2 value="0xAAA0AAAA" />
+    <Unk02 value="65236" />
+    <Category>hash_02C7B342</Category>
+   </Header>
+   <AudioTracks>
+    <Item>dlc_sonic_pick_r</Item>
+    <Item>dlc_sonic_pick_l</Item>
+   </AudioTracks>
+  </Item>
+  
+ </Items>
+</Dat54>

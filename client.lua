@@ -1,18 +1,18 @@
-function StopSound()
-	SendNUIMessage({
-		transactionType     = 'stopSound'
-	})
+function PlayDropSound(pos)
+	-- PlaySoundFrontend(-1, 'Sonic_Drop_Rings', 'DLC_SONIC_SOUNDS', 1)
+	local soundId = GetSoundId()
+	PlaySoundFromCoord(soundId, "Sonic_Drop_Rings", pos.x, pos.y, pos.z, "DLC_SONIC_SOUNDS", 0, 0, 0)
+	ReleaseSoundId(soundId)
 end
 
-function PlaySoundFile(soundFile, loop, volume)
-	local volume = volume or 1.0
-	SendNUIMessage({
-		transactionType     = 'playSound',
-		transactionFile     = 'audio/'..soundFile..'.ogg',
-		transactionVolume   = math.min(GetProfileSetting(300)/10, 1.0) * volume,
-		transactionLoop   	= loop
-	})
+function PlayPickSound()
+	PlaySoundFrontend(-1, 'Sonic_Pick_Rings', 'DLC_SONIC_SOUNDS', 1)
+	-- local soundId = GetSoundId()
+	-- PlaySoundFromCoord(soundId, "Sonic_Pick_Rings", pos.x, pos.y, pos.z, "DLC_SONIC_SOUNDS", 0, 0, 0)
+	-- ReleaseSoundId(soundId)
 end
+
+RequestScriptAudioBank('dlc_sonic/sonic', 0)
 
 function DrawSprite3D(textureDict, textureName, x, y, z, width, height, heading, red, green, blue, alpha)
     x = x + math.sin(math.rad(-heading-90.0)) * (width*0.5)
@@ -91,7 +91,7 @@ function CreateRing(pos, vel)
             end
 
             if not ring.picked and GetGameTimer() - ring.life.start > 500 and #(GetEntityCoords(PlayerPedId()) - ring.pos) < 1.0 then
-                --PlaySoundFile("ring1", false)
+                PlayPickSound()
                 ring.picked = true
                 ring.life.start = GetGameTimer()
                 ring.life.duration = 500
@@ -142,8 +142,10 @@ CreateThread(function()
         for i,v in pairs(pool) do
             if IsEntityDead(v) and not Entity(v).state.ringed then
 			Wait(100)
+				local pos = GetEntityCoords(v)
+				PlayDropSound(pos)
                 for i=0,GetPedMoney(v) do
-                    CreateRing(GetEntityCoords(v), GetEntityVelocity(v))
+                    CreateRing(pos, GetEntityVelocity(v))
                 end
                 Entity(v).state.ringed = true
             end
