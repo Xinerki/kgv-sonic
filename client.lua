@@ -104,11 +104,13 @@ end
 
 RegisterNetEvent("kgv:sonic:SpawnRings")
 AddEventHandler("kgv:sonic:SpawnRings", function(client)
-	local ped = GetPlayerPed(GetPlayerFromServerId(client))
-	local pos = GetEntityCoords(ped)
-	local vel = GetEntityVelocity(ped)
-	for i=1,32 do
-		CreateRing(pos, vel)
+	if client ~= -1 then
+		local ped = GetPlayerPed(GetPlayerFromServerId(client))
+		local pos = GetEntityCoords(ped)
+		local vel = GetEntityVelocity(ped)
+		for i=1,32 do
+			CreateRing(pos, vel)
+		end
 	end
 end)
 
