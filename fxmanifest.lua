@@ -15,3 +15,6 @@ data_file 'AUDIO_SOUNDDATA' 'data/dlcsonic_sounds.dat'
 
 -- file 'sound.html'
 -- ui_page 'sound.html'
+
+lua54 'on'
+use_fxv2_oal 'ye'

@@ -15,8 +15,8 @@ end
 RequestScriptAudioBank('dlc_sonic/sonic', 0)
 
 function DrawSprite3D(textureDict, textureName, x, y, z, width, height, heading, red, green, blue, alpha)
-    x = x + math.sin(math.rad(-heading-90.0)) * (width*0.5)
-    y = y + math.cos(math.rad(-heading-90.0)) * (width*0.5)
+    x += math.sin(math.rad(-heading-90.0)) * (width*0.5)
+    y += math.cos(math.rad(-heading-90.0)) * (width*0.5)
     --z = z -0.5
 
     local offX = math.sin(math.rad(-heading+90)) * width
@@ -48,28 +48,27 @@ end
 RequestStreamedTextureDict("ring")
 
 function CreateRing(pos, vel)
-    local spread = 0.5 + (math.random() * 0.5)
-    local rot = math.random(0,360)
-    local x = math.sin(math.rad(rot)) * 2.0 * spread
-    local y = math.cos(math.rad(rot)) * 2.0 * spread
-    local ring = {
-        pos = pos + vector3(x*0.1, y*0.1, 0.0),
-        life = {
-            start = GetGameTimer(),
-            duration = 10000,
-        },
-        size = vector2(0.5, 0.5),
-        vel = vector3(x, y, 2.0 * spread) + (vel*0.25),
-        picked = false
-    }
-
     CreateThread(function()
+		local spread = 0.5 + (math.random() * 0.5)
+		local rot = math.random(0,360)
+		local x = math.sin(math.rad(rot)) * 2.0 * spread
+		local y = math.cos(math.rad(rot)) * 2.0 * spread
+		local ring = {
+			pos = pos + vector3(x*0.1, y*0.1, 0.0),
+			life = {
+				start = GetGameTimer(),
+				duration = 10000,
+			},
+			size = vector2(0.5, 0.5),
+			vel = vector3(x, y, 2.0 * spread) + (vel*0.25),
+			picked = false
+		}
         while GetGameTimer() < ring.life.start + ring.life.duration do Wait(0)
             if not ring.picked then
-                ring.pos = ring.pos + ring.vel * GetFrameTime() * 4.0
+                ring.pos += ring.vel * GetFrameTime() * 2.0
             end
-            ring.vel = ring.vel / vector3(1.015, 1.015, 1.0)
-            ring.vel = ring.vel - vector3(0.0, 0.0, 0.1)
+            ring.vel /= vector3(1.015, 1.015, 1.0)
+            ring.vel -= vector3(0.0, 0.0, 0.1)
 
             local ray = StartExpensiveSynchronousShapeTestLosProbe(ring.pos.x, ring.pos.y, ring.pos.z, ring.pos.x, ring.pos.y, ring.pos.z - (ring.size.y/2), -1, -1, 0)
             local ret1, hit, _end, ret2, hitEnt = GetShapeTestResult(ray)
@@ -77,7 +76,7 @@ function CreateRing(pos, vel)
             hit = _end ~= vector3(0,0,0)
 
             if hit and ring.vel.z < 0.0 then 
-                ring.vel = ring.vel * vector3(1.0, 1.0, -0.5)
+                ring.vel *= vector3(1.0, 1.0, -0.5)
                 --DrawLine(ring.pos.x, ring.pos.y, ring.pos.z, ring.pos.x, ring.pos.y, ring.pos.z - (ring.size.y/2), 255, 255, 255, 255)
             end
 			
