@@ -140,7 +140,7 @@ CreateThread(function()
     while true do Wait(0)
         local pool = GetGamePool("CPed")
         for i,v in pairs(pool) do
-            if IsEntityDead(v) and not Entity(v).state.ringed then
+            if not IsPedAPlayer(v) and IsEntityDead(v) and not Entity(v).state.ringed then
 			Wait(100)
 				local pos = GetEntityCoords(v)
 				PlayDropSound(pos)
