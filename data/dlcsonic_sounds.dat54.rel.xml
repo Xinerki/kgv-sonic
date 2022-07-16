@@ -56,11 +56,11 @@
    <Items>
     <Item>
      <ScriptName>sonic_drop_rings</ScriptName>
-     <SoundName>dlc_sonic_drop_mt</SoundName>
+     <ChildSound>dlc_sonic_drop_mt</ChildSound>
     </Item>
     <Item>
      <ScriptName>sonic_pick_rings</ScriptName>
-     <SoundName>dlc_sonic_pick_mt</SoundName>
+     <ChildSound>dlc_sonic_pick_mt</ChildSound>
     </Item>
    </Items>
   </Item>
