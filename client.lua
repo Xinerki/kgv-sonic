@@ -90,7 +90,7 @@ function CreateRing(pos, vel)
                 DrawSprite3D("ring", "ring"..bit, ring.pos.x, ring.pos.y, ring.pos.z, ring.size.x, ring.size.y, GetFinalRenderedCamRot().z, 255, 255, 255, 255)
             end
 
-            if not ring.picked and GetGameTimer() - ring.life.start > 500 and #(GetEntityCoords(PlayerPedId()) - ring.pos) < 1.0 then
+            if not IsEntityDead(PlayerPedId()) and not ring.picked and GetGameTimer() - ring.life.start > 500 and #(GetEntityCoords(PlayerPedId()) - ring.pos) < 1.0 then
                 PlayPickSound()
                 ring.picked = true
                 ring.life.start = GetGameTimer()
@@ -102,24 +102,8 @@ function CreateRing(pos, vel)
     end)
 end
 
-function ReportDeath()
-	TriggerServerEvent("kgv:sonic:ReportDeath")
-end
-
--- RegisterNetEvent("kgv:sonic:SpawnRings", true)
--- AddEventHandler("kgv:sonic:SpawnRings", function(client)
-	-- print(client)
-	-- local ped = GetPlayerPed(GetPlayerFromServerId(client))
-	-- local pos = GetEntityCoords(ped)
-	-- for i=1,32 do
-		-- CreateRing(pos)
-	-- end
--- end)
-
-RegisterNetEvent('respawn:clKillMessage')
-AddEventHandler("respawn:clKillMessage", function(killer, victim)
-	local client = victim
-	print(client)
+RegisterNetEvent("kgv:sonic:SpawnRings")
+AddEventHandler("kgv:sonic:SpawnRings", function(client)
 	local ped = GetPlayerPed(GetPlayerFromServerId(client))
 	local pos = GetEntityCoords(ped)
 	local vel = GetEntityVelocity(ped)
@@ -128,13 +112,23 @@ AddEventHandler("respawn:clKillMessage", function(killer, victim)
 	end
 end)
 
--- CreateThread(function()
-	-- while true do Wait(0)
-		-- repeat Wait(0) until IsEntityDead(PlayerPedId())
-		-- ReportDeath()
-		-- repeat Wait(0) until not IsEntityDead(PlayerPedId())
+-- RegisterNetEvent('respawn:clKillMessage')
+-- AddEventHandler("respawn:clKillMessage", function(killer, victim)
+	-- local ped = GetPlayerPed(GetPlayerFromServerId(victim))
+	-- local pos = GetEntityCoords(ped)
+	-- local vel = GetEntityVelocity(ped)
+	-- for i=1,32 do
+		-- CreateRing(pos, vel)
 	-- end
 -- end)
+
+CreateThread(function()
+	while true do Wait(0)
+		repeat Wait(0) until IsEntityDead(PlayerPedId())
+		TriggerServerEvent("kgv:sonic:ReportDeath")
+		repeat Wait(0) until not IsEntityDead(PlayerPedId())
+	end
+end)
 
 CreateThread(function()
     while true do Wait(0)
