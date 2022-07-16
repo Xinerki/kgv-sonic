@@ -73,10 +73,10 @@
     <Unk02 value="65236" />
     <Category>hash_02C7B342</Category>
    </Header>
-   <AudioTracks>
+   <ChildSounds>
     <Item>dlc_sonic_drop_r</Item>
     <Item>dlc_sonic_drop_l</Item>
-   </AudioTracks>
+   </ChildSounds>
   </Item>
   <Item type="MultitrackSound">
    <Name>dlc_sonic_pick_mt</Name>
@@ -86,10 +86,10 @@
     <Unk02 value="65236" />
     <Category>hash_02C7B342</Category>
    </Header>
-   <AudioTracks>
+   <ChildSounds>
     <Item>dlc_sonic_pick_r</Item>
     <Item>dlc_sonic_pick_l</Item>
-   </AudioTracks>
+   </ChildSounds>
   </Item>
   
  </Items>
