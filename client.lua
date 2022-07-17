@@ -1,8 +1,9 @@
 function PlayDropSound(pos)
 	-- PlaySoundFrontend(-1, 'Sonic_Drop_Rings', 'DLC_SONIC_SOUNDS', 1)
-	local soundId = GetSoundId()
-	PlaySoundFromCoord(soundId, "Sonic_Drop_Rings", pos.x, pos.y, pos.z, "DLC_SONIC_SOUNDS", 0, 0, 0)
-	ReleaseSoundId(soundId)
+	-- local soundId = GetSoundId()
+	-- PlaySoundFromCoord(soundId, "Sonic_Drop_Rings", pos.x, pos.y, pos.z, "DLC_SONIC_SOUNDS", 0, 0, 0)
+	-- ReleaseSoundId(soundId)
+    PlaySoundFromCoord(-1, "Sonic_Drop_Rings", pos.x, pos.y, pos.z, "DLC_SONIC_SOUNDS", 0, 0, 0)
 end
 
 function PlayPickSound()
@@ -12,7 +13,8 @@ function PlayPickSound()
 	-- ReleaseSoundId(soundId)
 end
 
-RequestScriptAudioBank('dlc_sonic/sonic', 0)
+RequestScriptAudioBank('dlc_sonic/sonic')
+
 
 function DrawSprite3D(textureDict, textureName, x, y, z, width, height, heading, red, green, blue, alpha)
     x += math.sin(math.rad(-heading-90.0)) * (width*0.5)
@@ -57,7 +59,7 @@ function CreateRing(pos, vel)
 			pos = pos + vector3(x*0.1, y*0.1, 0.0),
 			life = {
 				start = GetGameTimer(),
-				duration = 10000,
+				duration = 10000 * math.random() * 1.5,
 			},
 			size = vector2(0.5, 0.5),
 			vel = vector3(x, y, 2.0 * spread) + (vel*0.25),
