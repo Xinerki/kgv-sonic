@@ -79,7 +79,6 @@ function CreateRing(pos, vel)
 
             if hit and ring.vel.z < 0.0 then 
                 ring.vel *= vector3(1.0, 1.0, -0.5)
-                --DrawLine(ring.pos.x, ring.pos.y, ring.pos.z, ring.pos.x, ring.pos.y, ring.pos.z - (ring.size.y/2), 255, 255, 255, 255)
             end
 			
             DrawLightWithRange(ring.pos.x, ring.pos.y, ring.pos.z, 255, 255, 102, 2.0, 0.5)
@@ -97,7 +96,6 @@ function CreateRing(pos, vel)
                 ring.life.start = GetGameTimer()
                 ring.life.duration = 500
                 ring.vel = vector3(0.0, 0.0, 0.0)
-                --exports["money"]:GiveMoney(1)
             end
         end
     end)
@@ -115,16 +113,6 @@ AddEventHandler("kgv:sonic:SpawnRings", function(client)
 	end
 end)
 
--- RegisterNetEvent('respawn:clKillMessage')
--- AddEventHandler("respawn:clKillMessage", function(killer, victim)
-	-- local ped = GetPlayerPed(GetPlayerFromServerId(victim))
-	-- local pos = GetEntityCoords(ped)
-	-- local vel = GetEntityVelocity(ped)
-	-- for i=1,32 do
-		-- CreateRing(pos, vel)
-	-- end
--- end)
-
 CreateThread(function()
 	while true do Wait(0)
 		repeat Wait(0) until IsEntityDead(PlayerPedId())
@@ -140,9 +128,10 @@ CreateThread(function()
             if not IsPedAPlayer(v) and IsEntityDead(v) and not Entity(v).state.ringed then
 			Wait(100)
 				local pos = GetEntityCoords(v)
+                local vel = GetEntityVelocity(v)
 				PlayDropSound(pos)
                 for i=0,GetPedMoney(v) do
-                    CreateRing(pos, GetEntityVelocity(v))
+                    CreateRing(pos, vel)
                 end
                 Entity(v).state.ringed = true
             end
