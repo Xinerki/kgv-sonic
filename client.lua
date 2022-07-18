@@ -59,7 +59,7 @@ function CreateRing(pos, vel)
 			pos = pos + vector3(x*0.1, y*0.1, 0.0),
 			life = {
 				start = GetGameTimer(),
-				duration = 10000 * math.random() * 1.5,
+				duration = 7000 + (math.random(0, 3) * 1000),
 			},
 			size = vector2(0.5, 0.5),
 			vel = vector3(x, y, 2.0 * spread) + (vel*0.25),
