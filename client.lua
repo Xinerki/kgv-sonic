@@ -14,7 +14,7 @@ function PlayPickSound()
 end
 
 RequestScriptAudioBank('dlc_sonic/sonic')
-
+RequestStreamedTextureDict("ring")
 
 function DrawSprite3D(textureDict, textureName, x, y, z, width, height, heading, red, green, blue, alpha)
     x += math.sin(math.rad(-heading-90.0)) * (width*0.5)
@@ -47,32 +47,10 @@ function DrawSprite3D(textureDict, textureName, x, y, z, width, height, heading,
         0.0, 0.0, 1.0)
 end
 
-RequestStreamedTextureDict("ring")
-
-function getVelocityPoint( posX, posY, posZ, pointX, pointY, pointZ, strength )
-	local vectorX = posX-pointX
-	local vectorY = posY-pointY
-	local vectorZ = posZ-pointZ
-	local length = ( vectorX^2 + vectorY^2 + vectorZ^2 )^0.5
-	
-	local propX = vectorX^2 / length^2
-	local propY = vectorY^2 / length^2
-	local propZ = vectorZ^2 / length^2
-		
-	local finalX = ( strength^2 * propX )^0.5
-	local finalY = ( strength^2 * propY )^0.5
-	local finalZ = ( strength^2 * propZ )^0.5
-	
-	if vectorX > 0 then finalX = finalX * -1 end
-	if vectorY > 0 then finalY = finalY * -1 end
-	if vectorZ > 0 then finalZ = finalZ * -1 end
-	
-	return finalX, finalY, finalZ
-end
-
 function CreateRing(pos, vel)
     CreateThread(function()
 		Wait(math.random(0, 5) * 100)
+		
 		local spread = 0.5 + (math.random() * 0.5)
 		local rot = math.random(0,360)
 		local x = math.sin(math.rad(rot)) * 2.0 * spread
@@ -87,8 +65,9 @@ function CreateRing(pos, vel)
 			vel = vector3(x, y, 2.0 * spread) + (vel*0.25),
 			picked = false
 		}
+		
         while GetGameTimer() < ring.life.start + ring.life.duration do Wait(0)
-			
+		
 			-- PHYSICS
             if not ring.picked then
                 ring.pos += ring.vel * GetFrameTime() * 2.0
@@ -133,20 +112,10 @@ function CreateRing(pos, vel)
 			
 			local hit = hitU or hitD or hitL or hitR or hitF or hitB
 			
-			-- DrawLine(ringOrigin, ringOrigin + vector3(ringRadius, 0.0, 0.0), 255, 0, 0, 255)
-			-- DrawLine(ringOrigin, ringOrigin + vector3(-ringRadius, 0.0, 0.0), 255, 0, 0, 255)
-			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, ringRadius, 0.0), 0, 255, 0, 255)
-			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, -ringRadius, 0.0), 0, 255, 0, 255)
-			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, 0.0, ringRadius), 0, 0, 255, 255)
-			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, 0.0, -ringRadius), 0, 0, 255, 255)
-			-- DrawMarker(28, ringOrigin, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ringRadius, ringRadius, ringRadius, 255, 255, 255, 50)
-			
             -- if hit ~= 0 and _end ~= vector3(0,0,0) then
             if hit then
-				local final = vector3((hitL or hitR) and -1.0 or 1.0, (hitF or hitB) and -1.0 or 1.0, (hitU or hitD) and -0.75 or 1.0)
-				
-				ring.vel *= final
-			
+				ring.vel *= vector3((hitL or hitR) and -1.0 or 1.0, (hitF or hitB) and -1.0 or 1.0, (hitU or hitD) and -0.75 or 1.0)
+							
 				-- if #(rayStart - _end) < #ring.size/2 then
 					-- ring.vel *= vector3(1.0, 1.0, -0.5)
 					-- ring.vel *= -0.5
@@ -155,7 +124,7 @@ function CreateRing(pos, vel)
 				-- end
             end
 			
-			-- VISUAL
+			-- RENDER
             DrawLightWithRange(ring.pos.x, ring.pos.y, ring.pos.z, 255, 255, 102, 2.0, 0.5)
 
 			local tex = "ring"
@@ -166,7 +135,7 @@ function CreateRing(pos, vel)
 			
 			DrawSprite3D("ring", tex..bit, ring.pos.x, ring.pos.y, ring.pos.z, ring.size, ring.size, GetFinalRenderedCamRot().z, 255, 255, 255, 255)
 
-			-- DESPAWN
+			-- PICKUP
             if not IsEntityDead(PlayerPedId()) and not ring.picked and GetGameTimer() - ring.life.start > 500 and #(GetEntityCoords(PlayerPedId()) - ring.pos) < 1.0 then
                 PlayPickSound()
                 ring.picked = true
@@ -174,6 +143,15 @@ function CreateRing(pos, vel)
                 ring.life.duration = 500
                 ring.vel = vector3(0.0, 0.0, 0.0)
             end
+			
+			-- DEBUG
+			-- DrawLine(ringOrigin, ringOrigin + vector3(ringRadius, 0.0, 0.0), 255, 0, 0, 255)
+			-- DrawLine(ringOrigin, ringOrigin + vector3(-ringRadius, 0.0, 0.0), 255, 0, 0, 255)
+			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, ringRadius, 0.0), 0, 255, 0, 255)
+			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, -ringRadius, 0.0), 0, 255, 0, 255)
+			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, 0.0, ringRadius), 0, 0, 255, 255)
+			-- DrawLine(ringOrigin, ringOrigin + vector3(0.0, 0.0, -ringRadius), 0, 0, 255, 255)
+			-- DrawMarker(28, ringOrigin, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ringRadius, ringRadius, ringRadius, 255, 255, 255, 50)
         end
     end)
 end
