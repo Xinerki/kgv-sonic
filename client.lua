@@ -66,6 +66,8 @@ function CreateRing(pos, vel)
 			picked = false
 		}
         while GetGameTimer() < ring.life.start + ring.life.duration do Wait(0)
+			
+			-- PHYSICS
             if not ring.picked then
                 ring.pos += ring.vel * GetFrameTime() * 2.0
             end
@@ -81,6 +83,7 @@ function CreateRing(pos, vel)
                 ring.vel *= vector3(1.0, 1.0, -0.5)
             end
 			
+			-- VISUAL
             DrawLightWithRange(ring.pos.x, ring.pos.y, ring.pos.z, 255, 255, 102, 2.0, 0.5)
 
             local bit = math.floor((GetGameTimer() % 400)/100)+1
@@ -90,6 +93,7 @@ function CreateRing(pos, vel)
                 DrawSprite3D("ring", "ring"..bit, ring.pos.x, ring.pos.y, ring.pos.z, ring.size.x, ring.size.y, GetFinalRenderedCamRot().z, 255, 255, 255, 255)
             end
 
+			-- DESPAWN
             if not IsEntityDead(PlayerPedId()) and not ring.picked and GetGameTimer() - ring.life.start > 500 and #(GetEntityCoords(PlayerPedId()) - ring.pos) < 1.0 then
                 PlayPickSound()
                 ring.picked = true
