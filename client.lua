@@ -80,31 +80,37 @@ function CreateRing(pos, vel)
 			
 			local rayStart = ringOrigin
 			
+			-- LEFT
 			local rayEnd = rayStart + vector3(-ringRadius, 0.0, 0.0)
 			local ray = StartExpensiveSynchronousShapeTestLosProbe(rayStart.x, rayStart.y, rayStart.z, rayEnd.x, rayEnd.y, rayEnd.z, -1, -1, 0)
 			local ret1, hit, _end, ret2, hitEnt = GetShapeTestResult(ray)
 			hitL = hit ~= 0
 			
+			-- RIGHT
 			local rayEnd = rayStart + vector3(ringRadius, 0.0, 0.0)
 			local ray = StartExpensiveSynchronousShapeTestLosProbe(rayStart.x, rayStart.y, rayStart.z, rayEnd.x, rayEnd.y, rayEnd.z, -1, -1, 0)
 			local ret1, hit, _end, ret2, hitEnt = GetShapeTestResult(ray)
 			hitR = hit ~= 0
 			
+			-- FRONT
 			local rayEnd = rayStart + vector3(0.0, ringRadius, 0.0)
 			local ray = StartExpensiveSynchronousShapeTestLosProbe(rayStart.x, rayStart.y, rayStart.z, rayEnd.x, rayEnd.y, rayEnd.z, -1, -1, 0)
 			local ret1, hit, _end, ret2, hitEnt = GetShapeTestResult(ray)
 			hitF = hit ~= 0
 			
+			-- BACK
 			local rayEnd = rayStart + vector3(0.0, -ringRadius, 0.0)
 			local ray = StartExpensiveSynchronousShapeTestLosProbe(rayStart.x, rayStart.y, rayStart.z, rayEnd.x, rayEnd.y, rayEnd.z, -1, -1, 0)
 			local ret1, hit, _end, ret2, hitEnt = GetShapeTestResult(ray)
 			hitB = hit ~= 0
 			
+			-- UP
 			local rayEnd = rayStart + vector3(0.0, 0.0, ringRadius)
 			local ray = StartExpensiveSynchronousShapeTestLosProbe(rayStart.x, rayStart.y, rayStart.z, rayEnd.x, rayEnd.y, rayEnd.z, -1, -1, 0)
 			local ret1, hit, _end, ret2, hitEnt = GetShapeTestResult(ray)
 			hitU = hit ~= 0
 			
+			-- DOWN
 			local rayEnd = rayStart + vector3(0.0, 0.0, -ringRadius)
 			local ray = StartExpensiveSynchronousShapeTestLosProbe(rayStart.x, rayStart.y, rayStart.z, rayEnd.x, rayEnd.y, rayEnd.z, -1, -1, 0)
 			local ret1, hit, _end, ret2, hitEnt = GetShapeTestResult(ray)
